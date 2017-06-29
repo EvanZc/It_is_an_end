@@ -81,7 +81,7 @@ text-align只作用于inline元素
 2、设置button block + margin : 0 auto;
 */
 
-button.login {
+.login {
 	width: 600px;
 	height: 80px;
     margin: 10px auto 100px auto;
@@ -89,13 +89,14 @@ button.login {
 	display: block;
 }
 
-button#button_login_active{
+#button_login_active{
 	background-image: url(button_login_active.png);
 }
-button#button_reg_active{
+
+
+#button_reg_active{
 	background-image: url(button_reg_active.png);
 }
-
 /*
 http://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/
 

@@ -1,0 +1,41 @@
+body {
+	margin: 0;
+
+	background-color: rgb(244,248,212);
+}
+
+div#allcontent {
+	margin: 0;
+}
+
+#main_div {
+	
+}
+
+header {
+	background-image: url(../login_header.png)
+}
+
+header:after {
+	content: '';
+	width: 0;
+	height: 200px;
+	display: inline-block;
+}
+
+footer {
+	display: table;
+	margin: 0;
+	border: 2px black solid;
+	width: 100%;
+	text-align: center; /*放到span里面也可以达到同样的效果*/
+}
+
+#div_tbl_cell {
+	display: table-cell;
+	height: 200px;
+	/*该属性定义行内元素的基线相对于该元素所在行的基线的垂直对齐。
+	允许指定负长度值和百分比值。这会使元素降低而不是升高。
+	在表单元格中，这个属性会设置单元格框中的单元格内容的对齐方式。*/
+	vertical-align: middle;
+} 
