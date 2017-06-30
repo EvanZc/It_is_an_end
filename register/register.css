@@ -5,15 +5,57 @@ body {
 }
 
 div#allcontent {
-	margin: 0;
+	/*让整个页面居中*/
+	margin: 0 auto;
+	width: 1600px;
+
 }
 
 #main_div {
-	
+	margin: 100px 0 0 0; /*和footer的top margin重合，所以还是200px的margin*/
+}
+
+/*form 元素是块级元素，其前后会产生折行。*/
+#form_register {
+	margin: 0 auto;
+	width: 400px;
+
+	display: table;
+	border-spacing: 10px;
+}
+
+div.form_div_row {
+	display: table-row;
+}
+
+div.form_last_row {
+	display: table-row;
+	border: 11px solid black;
+}
+
+label.label_describe {
+	display: table-cell;
+	text-align: right;
+}
+
+
+label.form_right_choice {
+	display: table-cell;
+	text-align: left;
+}
+
+p.p_table_cell{
+	text-align: center;
+	display: table-cell;
 }
 
 header {
-	background-image: url(../login_header.png)
+	background-image: url(../login_header.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	margin: 0;
+	padding: 0;
+	font-size: 0;
 }
 
 header:after {
@@ -25,8 +67,8 @@ header:after {
 
 footer {
 	display: table;
-	margin: 0;
-	border: 2px black solid;
+	margin: 50px 0 0 0;
+	border-top: 2px solid gray;
 	width: 100%;
 	text-align: center; /*放到span里面也可以达到同样的效果*/
 }
