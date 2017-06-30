@@ -10,14 +10,14 @@
 			<img src="login_header.png">
 		</header>
 		<section id="section_login">
-			<form action="" method="post">
+			<form action="" method="post" id="form_login">
 				<div class="form_row">
 					<label>Account:</label>
-					<input type="text" />
+					<input type="text" id="text_account"/>
 				</div>
 				<div class="form_row">
 					<label>Password:</label>
-					<input type="password" />
+					<input type="password" id="password_pwd"/>
 				</div>
 				<!-- value必须是"" 否则看得到字-->
 				<input type="submit" value="" id="button_login_active" class="login">
@@ -29,6 +29,5 @@
 			<p>Author: Evan Zeng</p>
 		</footer>
 	</section>
-	
 </body>
 </html>

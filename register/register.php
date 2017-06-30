@@ -3,6 +3,7 @@
 <head>
 	<title>New Account</title>
 	<link rel="stylesheet" type="text/css" href="register.css">
+	<script type="text/javascript" defer="defer" src="register.js"></script>
 </head>
 <body>
 	<div id="allcontent">
