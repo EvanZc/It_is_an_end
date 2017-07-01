@@ -40,18 +40,40 @@ function IsAnElementLostFocus(checkElement_idx)
 	return false;
 }
 
-function check()
+function checkAccount(str)
 {
+	console.log("this is text account");
+}
 
+function checkPassword(str)
+{
+	console.log("this is password input");
+}
+
+function check(checkElement_idx)
+{
+	var element = document.getElementById(checkElements[checkElement_idx]);
+	var str_id = element.id;
+	console.log("the element id is " + str_id);
+	switch (str_id)
+	{
+		case 'text_account':
+			checkAccount(element.value);
+			break;
+		case 'input_password':
+			checkPassword(element.value);
+			break;
+	}
+	
 }
 
 function TestTextBox() {
 	var i;
-	for (i = 1; i < checkElements.length; i+=2)
+	for (i = 1; i < checkElements.length; i += 2)
 	{
 		if (true == IsAnElementLostFocus(i))
 		{
-			console.log("check...");
+			check(i);
 		}
 	}
 }
