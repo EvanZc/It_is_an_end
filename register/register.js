@@ -68,8 +68,7 @@ function clearTheWrongHint(elem)
 	*/
 	if (elem.id == ID_TEXT_ACCOUNT)
 	{
-		var img_wrong_element= document.getElementById('img_text_account_wrong');
-		clearTheWrongHint(img_wrong_element);
+		var img_wrong_element = document.getElementById('img_text_account_wrong');
 		if (img_wrong_element)
 		{
 			console.log("remove img.");
@@ -90,23 +89,81 @@ function clearTheWrongHint(elem)
 	}
 }
 
+//会刷新网页,所以要用AJAX
+//http://www.runoob.com/ajax/ajax-tutorial.html 教程
+function postAccountToCheck(user_input_account)
+{
+	//create ajax object
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+		xmlhttp = new XMLHttpRequest();
+	}
+	else
+	{
+		//for IE6 IE5.
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+
+	xmlhttp.onreadystatechange=function()
+	{
+		//readyState改变时 会触发 onreadystatechange事件
+		//status 200是ok 404是没有找到页面
+		if ((4 == xmlhttp.readyState) && (200 == xmlhttp.status))
+		{
+			var accountnum = xmlhttp.responseText;
+			console.log("accountnum is :" + accountnum);
+			var p_account_hint_info_elem = document.getElementById(ACCOUNT_HINT_ID);
+			if (1 == accountnum)
+			{
+				p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[ACCOUNT_TAKEN];
+				p_account_hint_info_elem.style.visibility = "visible";
+			}
+			else if (0 == accountnum)
+			{
+				//change img to a check.
+				console.log("you can use it.");
+			}
+			else
+			{
+				console.log("sth gose wrong");
+			}
+		}
+	}
+
+	xmlhttp.open("GET", "account_check.php?account=" + user_input_account, true);
+	xmlhttp.send();
+
+}
+
 
 //check logic 应该还有一个专门的逻辑函数。处理 长度，字符个数，甚至是否是固定格式
 function checkAccountLogic(str)
 {
     //imsert a circling img, telling the user that I am checking...
     //当要显示勾勾 or 叉叉 的图片的时候，通过id找到元素，然后把这个图片的src替换掉
-
 	//see if length is ok, not ok ,return 提示 "length is not ok".
 	if(str.length < MIN_ACCOUNT_LEN)
 	{
+		console.log("in checkAccountLogic str is " + str);
 		return LENGTHEN_THE_ACCOUNT;
 	}
 
 	//see if the account is already taken. taken, 提示 "already exist."
-
+	postAccountToCheck(str);
 	return RETURN_OK; //return error code
 }
+
+function isAccountExist(isExist)
+{
+	//show the hint.
+	var p_account_hint_info_elem = document.getElementById(ACCOUNT_HINT_ID);
+	p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[return_code];
+	p_account_hint_info_elem.style.visibility = "visible";
+
+	//change the picture;
+}
+
 
 /*
 	check这个account的值，返回返回码，
@@ -163,14 +220,9 @@ function checkAccount(element, str)
 		//create circling img which tells the user that the program is checking.
 		//connect the database. if the account has already be registered.
 	}
-
-
-	
-	
-	
 }
 
-function checkPassword(str)
+function checkPassword(elem, str)
 {
 	console.log("this is password input");
 }
@@ -186,7 +238,7 @@ function check(checkElement_idx)
 			checkAccount(element, element.value);
 			break;
 		case ID_INPUT_PASSWORD:
-			checkPassword(element.value);
+			checkPassword(element, element.value);
 			break;
 	}
 	

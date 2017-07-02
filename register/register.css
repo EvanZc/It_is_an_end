@@ -33,7 +33,7 @@ div.form_div_row {
 
 .form_div_hint_info_row {
 	display: table-row;
-	height: 20px;
+	height: 20px;  /*需要足够高*/
 	font-size: 10px;
 
 	text-align: left;
