@@ -18,7 +18,11 @@
 			<form method="POST" action="test.php" id="form_register">
 				<div class="form_div_row">
 					<label class="label_describe" for="text_account">Account:</label>
-    				<input class="form_right_choice" type="text" name="input_account" id="text_account" required/>
+    				<input class="form_right_choice" type="text" name="input_account" id="text_account"/>
+    			</div>
+    			<div class="form_div_hint_info_row">
+    				<div class="form_div_take_place"></div>
+    				<p id="p_account_hint_info"></p>
     			</div>
     			<div class="form_div_row">
     				<label class="label_describe">City:</label>
@@ -28,13 +32,25 @@
     					<option value="Guangzhou">Guangzhou</option>
     				</select>
     			</div>
+    			<div class="form_div_hint_info_row">
+    				<div class="form_div_take_place"></div>
+    				<p id="p_account_hint_info"></p>
+    			</div>
     			<div class="form_div_row">
     				<label class="label_describe">Password:</label>
     				<input class="form_right_choice" type="password" name="input_password" id="input_password" />
     			</div>
+    			<div class="form_div_hint_info_row">
+    				<div class="form_div_take_place"></div>
+    				<p id="p_account_hint_info"></p>
+    			</div>
     			<div class="form_div_row">
     				<label class="label_describe">Password again:</label>
     				<input class="form_right_choice" type="password" name="input_repassword" id="input_repassword" />
+    			</div>
+    			<div class="form_div_hint_info_row">
+    				<div class="form_div_take_place"></div>
+    				<p id="p_account_hint_info"></p>
     			</div>
     			<div class="form_last_row">
 					<!-- 

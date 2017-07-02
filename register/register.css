@@ -21,27 +21,44 @@ div#allcontent {
 	width: 400px;
 
 	display: table;
-	border-spacing: 10px;
 }
 
 div.form_div_row {
 	display: table-row;
 }
 
+.form_div_take_place {
+	display: table-cell;
+}
+
+.form_div_hint_info_row {
+	display: table-row;
+	height: 20px;
+	font-size: 10px;
+
+	text-align: left;
+}
+
+#p_account_hint_info {
+	display: table-cell;
+	color: red;
+	visibility: hidden;
+}
+
+
 div.form_last_row {
 	display: table-row;
-	border: 11px solid black;
 }
 
 label.label_describe {
 	display: table-cell;
+	width: 180px;  /*这样才能让textbox右边可能出现的img不会影响到其他table-cell的位置*/
 	text-align: right;
 }
 
 
 label.form_right_choice {
 	display: table-cell;
-	text-align: left;
 }
 
 p.p_table_cell{
