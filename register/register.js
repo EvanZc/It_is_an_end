@@ -1,15 +1,22 @@
 /*---------ID---------*/
 const ID_TEXT_ACCOUNT = "text_account";
+const ID_IMG_ACCOUNT_HINT = "id_img_account_hint";
+
 const ID_INPUT_PASSWORD = "input_password"
 
+/*-------SRC------*/
+const SRC_WRONG_IMG = "wrong.png";
+const SRC_RIGHT_IMG = "check.png";
+
+
 const MIN_ACCOUNT_LEN = 6;
-const RETURN_OK = 1;
+const ACCOUNT_OK = 1;
 const LENGTHEN_THE_ACCOUNT = 2;
 const ACCOUNT_TAKEN = 3;
 const ACCOUNT_HINT_ID = "p_account_hint_info";
 //这里面必须是1，2，3 用const的值不起作用
 var ACCOUNT_CHECK_HINT_INFO = { 
-								  1 : "OK", 
+								  1 : "OK, you can use it.", 
 								  2 : "Account length can not less than 6", 
 								  3 : "The account has already been taken."
 								};
@@ -68,12 +75,8 @@ function clearTheWrongHint(elem)
 	*/
 	if (elem.id == ID_TEXT_ACCOUNT)
 	{
-		var img_wrong_element = document.getElementById('img_text_account_wrong');
-		if (img_wrong_element)
-		{
-			console.log("remove img.");
-			img_wrong_element.parentElement.removeChild(img_wrong_element);
-		}
+		var img_wrong_element = document.getElementById(ID_IMG_ACCOUNT_HINT);
+		img_wrong_element.style.visibility = 'hidden';
 
 		var p_account_hint_info_elem = document.getElementById(ACCOUNT_HINT_ID);
 		p_account_hint_info_elem.innerHTML = "";
@@ -114,15 +117,25 @@ function postAccountToCheck(user_input_account)
 			var accountnum = xmlhttp.responseText;
 			console.log("accountnum is :" + accountnum);
 			var p_account_hint_info_elem = document.getElementById(ACCOUNT_HINT_ID);
+			var img_account_hint = document.getElementById(ID_IMG_ACCOUNT_HINT);
 			if (1 == accountnum)
 			{
+				//show the wrong hint , 'already taken'
 				p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[ACCOUNT_TAKEN];
 				p_account_hint_info_elem.style.visibility = "visible";
+
+				//show the wrong img
+				img_account_hint.setAttribute("src", SRC_WRONG_IMG);//see if this can happen;
+				img_account_hint.style.visibility = 'visible';
 			}
 			else if (0 == accountnum)
 			{
 				//change img to a check.
-				console.log("you can use it.");
+				img_account_hint.setAttribute("src", SRC_RIGHT_IMG);
+				img_account_hint.style.visibility = 'visible';
+				//show the p
+				p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[ACCOUNT_OK];
+				p_account_hint_info_elem.style.visibility = "visible";
 			}
 			else
 			{
@@ -151,7 +164,7 @@ function checkAccountLogic(str)
 
 	//see if the account is already taken. taken, 提示 "already exist."
 	postAccountToCheck(str);
-	return RETURN_OK; //return error code
+	return ACCOUNT_OK; //return error code
 }
 
 function isAccountExist(isExist)
@@ -183,7 +196,7 @@ function checkAccount(element, str)
 	return_code = checkAccountLogic(str);
 
 	//然后返回一个返回值。然后提示一个img，还有在下面加一个text。
-	if (return_code != RETURN_OK)
+	if (return_code != ACCOUNT_OK)
 	{
 		hint_info = ACCOUNT_CHECK_HINT_INFO[return_code];
 		console.log("The hint info is " + hint_info);
@@ -194,21 +207,10 @@ function checkAccount(element, str)
 		p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[return_code];
 		p_account_hint_info_elem.style.visibility = "visible"; //必须要用引号。。。
 
-        if (document.getElementById('img_text_account_wrong'))
-		{
-			console.log("already have the wrong img information.");
-			return; 
-		}
-
 		console.log("text account value length is " + str.length);
-		var wrong_img = document.createElement("img");
-		wrong_img.setAttribute('src', 'wrong.png');
-		wrong_img.style.width = '16px'; // css mode
-		//wrong_img.style.height = '16px'; // css mode
-		wrong_img.height = 16; //html mode
-		wrong_img.style.verticalAlign = 'text-bottom';
-		wrong_img.id = 'img_text_account_wrong';
-		element.parentNode.appendChild(wrong_img);
+		var img_account_hint = document.getElementById(ID_IMG_ACCOUNT_HINT);
+		img_account_hint.setAttribute('src', SRC_WRONG_IMG);
+		img_account_hint.style.visibility = 'visible';  //这个不能用setAttribute哦~
 
 		//Todo:
 		//create information node(e.g.  the length should be more than 5.)

@@ -27,6 +27,12 @@ div.form_div_row {
 	display: table-row;
 }
 
+.img_hint {
+	vertical-align: text-bottom;
+	visibility: hidden;
+	display: table-cell;
+}
+
 .form_div_take_place {
 	display: table-cell;
 }

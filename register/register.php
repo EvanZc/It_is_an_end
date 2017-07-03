@@ -19,6 +19,7 @@
 				<div class="form_div_row">
 					<label class="label_describe" for="text_account">Account:</label>
     				<input class="form_right_choice" type="text" name="input_account" id="text_account"/>
+                    <img src="wrong.png" class="img_hint" id="id_img_account_hint"/>
     			</div>
     			<div class="form_div_hint_info_row">
     				<div class="form_div_take_place"></div>
