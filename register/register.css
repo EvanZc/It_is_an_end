@@ -45,7 +45,7 @@ div.form_div_row {
 	text-align: left;
 }
 
-#p_account_hint_info {
+.p_hint_info {
 	display: table-cell;
 	color: red;
 	visibility: hidden;

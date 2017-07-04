@@ -3,25 +3,50 @@ const ID_TEXT_ACCOUNT = "text_account";
 const ID_IMG_ACCOUNT_HINT = "id_img_account_hint";
 
 const ID_INPUT_PASSWORD = "input_password"
+const ID_IMG_PASSWORD_HINT = "id_img_password_hint";
 
+const ID_P_ACCOUNT_HINT = "p_account_hint_info";
+const ID_P_PASSWORD_HINT = "p_password_hint_info";
 /*-------SRC------*/
 const SRC_WRONG_IMG = "wrong.png";
 const SRC_RIGHT_IMG = "check.png";
 
 
 const MIN_ACCOUNT_LEN = 6;
-const ACCOUNT_OK = 1;
-const LENGTHEN_THE_ACCOUNT = 2;
-const ACCOUNT_TAKEN = 3;
-const ACCOUNT_HINT_ID = "p_account_hint_info";
+const MAX_ACCOUNT_LEN = 16;
+const MIN_PWD_LEN = 6;
+const MAX_PWD_LEN = 16;
+
+/*--------HINT-----------*/
+const HINT_OK = 1;
+
+/*------ACCOUNT HINT-----*/
+const HINT_ACCOUNT_LENGTH_WRONG = 2;
+const HINT_ACCOUNT_TAKEN = 3;
+const HINT_ACCOUNT_HAS_INVALID_CHAR = 4;
+
+/*------PASSWORD HINT-----*/
+const HINT_PASSWORD_LENGTH_WRONG = 2;
+const HINT_PASSWORD_INVALID_CHAR = 3;
+
+/*------CHECK PASSWORD HINT-----*/
+
+
 //这里面必须是1，2，3 用const的值不起作用
 var ACCOUNT_CHECK_HINT_INFO = { 
 								  1 : "OK, you can use it.", 
 								  2 : "Account length can not less than 6", 
-								  3 : "The account has already been taken."
+								  3 : "The account has already been taken.",
+								  4 : "Invalid characters in the account."
 								};
+
+var PASSWORD_CHECK_HINT_INFO = {
+								  1 : "",
+								  2 : "Password length should between 6 to 16.",
+								  3 : "Invalid characters in the password."
+}
+
 console.log("ACCOUNT_CHECK_HINT_INFO[1] is " + ACCOUNT_CHECK_HINT_INFO[1]);
-console.log("LENGTHEN_THE_ACCOUNT is " + LENGTHEN_THE_ACCOUNT);
 var checkElements = [];
 var textAccountFocusLastTime = false;
 var textPasswordFocusLastTime = false;
@@ -78,7 +103,7 @@ function clearTheWrongHint(elem)
 		var img_wrong_element = document.getElementById(ID_IMG_ACCOUNT_HINT);
 		img_wrong_element.style.visibility = 'hidden';
 
-		var p_account_hint_info_elem = document.getElementById(ACCOUNT_HINT_ID);
+		var p_account_hint_info_elem = document.getElementById(ID_P_ACCOUNT_HINT);
 		p_account_hint_info_elem.innerHTML = "";
 		p_account_hint_info_elem.style.visibility = "hidden"; //必须要用引号。。。
 	}
@@ -116,12 +141,12 @@ function postAccountToCheck(user_input_account)
 		{
 			var accountnum = xmlhttp.responseText;
 			console.log("accountnum is :" + accountnum);
-			var p_account_hint_info_elem = document.getElementById(ACCOUNT_HINT_ID);
+			var p_account_hint_info_elem = document.getElementById(ID_P_ACCOUNT_HINT);
 			var img_account_hint = document.getElementById(ID_IMG_ACCOUNT_HINT);
 			if (1 == accountnum)
 			{
 				//show the wrong hint , 'already taken'
-				p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[ACCOUNT_TAKEN];
+				p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[HINT_ACCOUNT_TAKEN];
 				p_account_hint_info_elem.style.visibility = "visible";
 
 				//show the wrong img
@@ -134,7 +159,7 @@ function postAccountToCheck(user_input_account)
 				img_account_hint.setAttribute("src", SRC_RIGHT_IMG);
 				img_account_hint.style.visibility = 'visible';
 				//show the p
-				p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[ACCOUNT_OK];
+				p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[HINT_OK];
 				p_account_hint_info_elem.style.visibility = "visible";
 			}
 			else
@@ -156,27 +181,22 @@ function checkAccountLogic(str)
     //imsert a circling img, telling the user that I am checking...
     //当要显示勾勾 or 叉叉 的图片的时候，通过id找到元素，然后把这个图片的src替换掉
 	//see if length is ok, not ok ,return 提示 "length is not ok".
-	if(str.length < MIN_ACCOUNT_LEN)
+	if((str.length < MIN_ACCOUNT_LEN) || (str.length > MAX_ACCOUNT_LEN))
 	{
 		console.log("in checkAccountLogic str is " + str);
-		return LENGTHEN_THE_ACCOUNT;
+		return HINT_ACCOUNT_LENGTH_WRONG;
+	}
+
+	var reg = new RegExp("^[A-Za-z0-9]+$");
+	if (!reg.exec(str))
+	{
+		return HINT_ACCOUNT_HAS_INVALID_CHAR;
 	}
 
 	//see if the account is already taken. taken, 提示 "already exist."
 	postAccountToCheck(str);
-	return ACCOUNT_OK; //return error code
+	return HINT_OK; //return error code
 }
-
-function isAccountExist(isExist)
-{
-	//show the hint.
-	var p_account_hint_info_elem = document.getElementById(ACCOUNT_HINT_ID);
-	p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[return_code];
-	p_account_hint_info_elem.style.visibility = "visible";
-
-	//change the picture;
-}
-
 
 /*
 	check这个account的值，返回返回码，
@@ -196,14 +216,14 @@ function checkAccount(element, str)
 	return_code = checkAccountLogic(str);
 
 	//然后返回一个返回值。然后提示一个img，还有在下面加一个text。
-	if (return_code != ACCOUNT_OK)
+	if (return_code != HINT_OK)
 	{
 		hint_info = ACCOUNT_CHECK_HINT_INFO[return_code];
 		console.log("The hint info is " + hint_info);
 
 		//create a bubble box to show the hint info.
 		//maybe just show it, the css can hide everything.
-		var p_account_hint_info_elem = document.getElementById(ACCOUNT_HINT_ID);
+		var p_account_hint_info_elem = document.getElementById(ID_P_ACCOUNT_HINT);
 		p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[return_code];
 		p_account_hint_info_elem.style.visibility = "visible"; //必须要用引号。。。
 
@@ -223,10 +243,52 @@ function checkAccount(element, str)
 		//connect the database. if the account has already be registered.
 	}
 }
+/*
+	单纯地检测用户输入的密码
+*/
+function checkPasswordLogic(str)
+{
+	//more than 6, less equal than 16
+	if ((str.length < MIN_PWD_LEN) || (str.length > MAX_PWD_LEN))
+	{
+		return HINT_PASSWORD_LENGTH_WRONG;
+	}
+
+	//all key board characters.
+	var reg = new RegExp("^[A-Za-z0-9]+$");
+	if (!reg.exec(str))
+	{
+		return HINT_PASSWORD_INVALID_CHAR;
+	}
+
+	return HINT_OK;
+}
 
 function checkPassword(elem, str)
 {
 	console.log("this is password input");
+
+	var return_code = checkPasswordLogic(str);
+	//set hint words.
+	var p_pwd_hint_info = document.getElementById(ID_P_PASSWORD_HINT);
+	p_pwd_hint_info.innerHTML = PASSWORD_CHECK_HINT_INFO[return_code];
+	p_pwd_hint_info.style.visibility = "visible";
+
+	//set hint img.
+	var img_elem = document.getElementById(ID_IMG_PASSWORD_HINT);
+	if (return_code != HINT_OK)
+	{
+		//show the img and the correspond hint info.
+		img_elem.setAttribute("src", SRC_WRONG_IMG);
+	}
+	else
+	{
+		//show the img and no words.
+		img_elem.setAttribute("src", SRC_RIGHT_IMG);
+	}
+	
+	img_elem.style.visibility = "visible";
+	
 }
 
 function check(checkElement_idx)
@@ -263,4 +325,6 @@ InitWork();
 //不行 onclick检测不到focus
 //注意写在行内的事件的参数是字符串，
 //浏览器会使用eval来执行代码，所以你应该写onclick="myfuncyion()"
+
+//应该可以用onblur来代替 -. -...
 window.setInterval(TestTextBox, 10);

@@ -23,7 +23,7 @@
     			</div>
     			<div class="form_div_hint_info_row">
     				<div class="form_div_take_place"></div>
-    				<p id="p_account_hint_info"></p>
+    				<p id="p_account_hint_info" class="p_hint_info"></p>
     			</div>
     			<div class="form_div_row">
     				<label class="label_describe">City:</label>
@@ -31,27 +31,30 @@
     					<option value="Chengdu">Chengdu</option>
     					<option value="Shanghai">Shanghai</option>
     					<option value="Guangzhou">Guangzhou</option>
+                        <option value="Guangzhou">Other</option>
     				</select>
     			</div>
     			<div class="form_div_hint_info_row">
     				<div class="form_div_take_place"></div>
-    				<p id="p_account_hint_info"></p>
+    				<p id="p_province_hint_info" class="p_hint_info"></p>
     			</div>
     			<div class="form_div_row">
     				<label class="label_describe">Password:</label>
     				<input class="form_right_choice" type="password" name="input_password" id="input_password" />
-    			</div>
+    		        <img src="wrong.png" class="img_hint" id="id_img_password_hint"/>
+                </div>
     			<div class="form_div_hint_info_row">
     				<div class="form_div_take_place"></div>
-    				<p id="p_account_hint_info"></p>
+    				<p id="p_password_hint_info" class="p_hint_info"></p>
     			</div>
     			<div class="form_div_row">
-    				<label class="label_describe">Password again:</label>
-    				<input class="form_right_choice" type="password" name="input_repassword" id="input_repassword" />
-    			</div>
+    			    <label class="label_describe">Password again:</label>
+    		        <input class="form_right_choice" type="password" name="input_repassword" id="input_repassword" />
+    			    <img src="wrong.png" class="img_hint" id="id_img_repassword_hint"/>
+                </div>
     			<div class="form_div_hint_info_row">
     				<div class="form_div_take_place"></div>
-    				<p id="p_account_hint_info"></p>
+    				<p id="p_repassword_hint_info" class="p_hint_info"></p>
     			</div>
     			<div class="form_last_row">
 					<!-- 
