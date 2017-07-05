@@ -148,7 +148,9 @@ function onSubmitCheck()
 		return false;
 	}
 	
-	if(pwd_str != repwd_str);
+	console.log("pwd_str is " + pwd_str);
+	console.log("repwd_str is " + repwd_str);
+	if(pwd_str != repwd_str)
 	{
 		elem_pwd.value = "";
 		elem_repwd.value = "";
@@ -157,7 +159,10 @@ function onSubmitCheck()
 		alert(SUBMIT_CHECK_INFO_REPWD);
 		return false;
 	}
-	console.log("return true;;;;;");
+
+
+	//send the form to the register page.
+
 	return true;
 }
 
@@ -196,14 +201,6 @@ function clearTheWrongHint(elem)
 		var p_account_hint_info_elem = document.getElementById(ID_P_ACCOUNT_HINT);
 		p_account_hint_info_elem.innerHTML = "";
 		p_account_hint_info_elem.style.visibility = "hidden"; //必须要用引号。。。
-	}
-	else if (elem.id == ID_INPUT_PASSWORD)
-	{
-
-	}
-	else
-	{
-
 	}
 }
 
