@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="register.css">
 	<script type="text/javascript" defer="defer" src="register.js"></script>
 </head>
-<body>
+<body onload="InitWork()">
 	<div id="allcontent">
 		<header>
 
@@ -15,7 +15,7 @@
 			<!-- 用onsubmit在提交的时候check各个textbox的合法性 -->
 			<!-- input 有 required属性-->
 			<!-- for有隐式和显式的, 用来联系控件（点到label就会自动focus到联系的控件上）-->
-			<form method="POST" action="test.php" id="form_register">
+			<form method="POST" action="test.php" id="form_register" onsubmit="return onSubmitCheck()">
 				<div class="form_div_row">
 					<label class="label_describe" for="text_account">Account:</label>
     				<input class="form_right_choice" type="text" name="input_account" id="text_account"/>

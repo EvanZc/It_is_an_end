@@ -7,11 +7,15 @@ const ID_IMG_PASSWORD_HINT = "id_img_password_hint";
 
 const ID_P_ACCOUNT_HINT = "p_account_hint_info";
 const ID_P_PASSWORD_HINT = "p_password_hint_info";
+const ID_P_REPASSWORD_HINT = "p_repassword_hint_info";
+
+const ID_INPUT_REPASSWORD = "input_repassword";
+const ID_IMG_REPASSWORD_HINT = "id_img_repassword_hint";
 /*-------SRC------*/
 const SRC_WRONG_IMG = "wrong.png";
 const SRC_RIGHT_IMG = "check.png";
 
-
+/*----INPUT LEN---*/
 const MIN_ACCOUNT_LEN = 6;
 const MAX_ACCOUNT_LEN = 16;
 const MIN_PWD_LEN = 6;
@@ -28,6 +32,19 @@ const HINT_ACCOUNT_HAS_INVALID_CHAR = 4;
 /*------PASSWORD HINT-----*/
 const HINT_PASSWORD_LENGTH_WRONG = 2;
 const HINT_PASSWORD_INVALID_CHAR = 3;
+
+/*------REPASSWORD HINT----*/
+const HINT_REPASSWORD_ERROR = 2;
+
+/*------SUBMITCHECK-------*/
+const SUBMIT_CHECK_OK = 1;
+const SUBMIT_CHECK_ACCOUNT_WRONG = 2;
+const SUBMIT_CHECK_PWD_WRONG = 3;
+const SUBMIT_CHECK_REPWD_WRONG = 4;
+
+const SUBMIT_CHECK_INFO_ACCOUNT = "Please input the account in a proper format.";
+const SUBMIT_CHECK_INFO_PWD = "Please input the pwd in a proper format.";
+const SUBMIT_CHECK_INFO_REPWD = "Please input the same pwd in two pwd box.";
 
 /*------CHECK PASSWORD HINT-----*/
 
@@ -46,10 +63,16 @@ var PASSWORD_CHECK_HINT_INFO = {
 								  3 : "Invalid characters in the password."
 }
 
+const HINT_REPASSWORD_STR = "Password is not equal to repassword.";
+
+
 console.log("ACCOUNT_CHECK_HINT_INFO[1] is " + ACCOUNT_CHECK_HINT_INFO[1]);
 var checkElements = [];
 var textAccountFocusLastTime = false;
 var textPasswordFocusLastTime = false;
+
+
+
 function InitWork()
 {
 	console.log("Init work begin...");
@@ -60,6 +83,11 @@ function InitWork()
 	checkElements.push(ID_TEXT_ACCOUNT);
 	checkElements.push(false);
 	checkElements.push(ID_INPUT_PASSWORD);
+	checkElements.push(false);
+	checkElements.push(ID_INPUT_REPASSWORD);
+
+	var elem_account = document.getElementById(ID_TEXT_ACCOUNT);
+	elem_account.value = "";
 
 	console.log("Init work end...");
 	console.log("checkElements len is " + checkElements.length);
@@ -69,6 +97,68 @@ function InitWork()
 	var elem = document.getElementById(ID_INPUT_PASSWORD);
 	elem.addEventListener('click',function(){alert('ok');},false);
 	*/
+}
+
+function onSubmitCheckElem(elem_id, alert_info, check_func, do_func)
+{
+	var elem = document.getElementById(elem_id);
+	var elem_str = elem.value;
+	var return_code = check_func(elem_str)
+	if (return_code != HINT_OK)
+	{
+		do_func(return_code);
+		alert(alert_info);
+		return false;
+	}
+	return true;
+}
+
+function onSubmitCheck()
+{
+	//check account pwd pwd-repwd.
+	//if one wrong, return false. 
+	//account有问题，依然要提示account有问题，并且清除2个pwd
+	//pwd有问题 ， 提示pwd有问题，清除repwd，repwd不提示任何信息
+	//repwd有问题，清除pwd和repwd。提示的话。。。待定
+	var elem_pwd = document.getElementById(ID_INPUT_PASSWORD);
+	var pwd_str = elem_pwd.value;
+	var elem_repwd = document.getElementById(ID_INPUT_REPASSWORD);
+	var elem_p_repwd = document.getElementById(ID_P_REPASSWORD_HINT);
+	var repwd_str = elem_repwd.value;
+	var elem_pwd_img = document.getElementById(ID_IMG_PASSWORD_HINT);
+	var elem_repwd_img = document.getElementById(ID_IMG_REPASSWORD_HINT);
+	//1. get account input
+	if(!onSubmitCheckElem(ID_TEXT_ACCOUNT, SUBMIT_CHECK_INFO_ACCOUNT, 
+							checkAccountLogic, doWhenAccountWrong))
+	{
+		elem_pwd.value = "";
+		elem_repwd.value = "";
+		elem_p_repwd.innerHTML = "";
+		elem_pwd_img.style.visibility = "hidden";
+		elem_repwd_img.style.visibility = "hidden";
+		return false;
+	}
+
+	if(!onSubmitCheckElem(ID_INPUT_PASSWORD, SUBMIT_CHECK_INFO_PWD, 
+							checkPasswordLogic, doPasswordWrong))
+	{
+		elem_pwd.value = "";
+		elem_repwd.value = "";
+		elem_pwd_img.style.visibility = "hidden";
+		return false;
+	}
+	
+	if(pwd_str != repwd_str);
+	{
+		elem_pwd.value = "";
+		elem_repwd.value = "";
+		elem_pwd_img.style.visibility = "hidden";
+		elem_repwd_img.style.visibility = "hidden";
+		alert(SUBMIT_CHECK_INFO_REPWD);
+		return false;
+	}
+	console.log("return true;;;;;");
+	return true;
 }
 
 function IsAnElementLostFocus(checkElement_idx)
@@ -206,6 +296,22 @@ function checkAccountLogic(str)
 	else:
 		显示ok的图片（一个勾勾）
 */
+function doWhenAccountWrong(return_code)
+{
+	hint_info = ACCOUNT_CHECK_HINT_INFO[return_code];
+	console.log("The hint info is " + hint_info);
+
+	//create a bubble box to show the hint info.
+	//maybe just show it, the css can hide everything.
+	var p_account_hint_info_elem = document.getElementById(ID_P_ACCOUNT_HINT);
+	p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[return_code];
+	p_account_hint_info_elem.style.visibility = "visible"; //必须要用引号。。。
+
+	var img_account_hint = document.getElementById(ID_IMG_ACCOUNT_HINT);
+	img_account_hint.setAttribute('src', SRC_WRONG_IMG);
+	img_account_hint.style.visibility = 'visible';  //这个不能用setAttribute哦~
+}
+
 function checkAccount(element, str)
 {
 	//input textbox should have the fix width.
@@ -218,20 +324,7 @@ function checkAccount(element, str)
 	//然后返回一个返回值。然后提示一个img，还有在下面加一个text。
 	if (return_code != HINT_OK)
 	{
-		hint_info = ACCOUNT_CHECK_HINT_INFO[return_code];
-		console.log("The hint info is " + hint_info);
-
-		//create a bubble box to show the hint info.
-		//maybe just show it, the css can hide everything.
-		var p_account_hint_info_elem = document.getElementById(ID_P_ACCOUNT_HINT);
-		p_account_hint_info_elem.innerHTML = ACCOUNT_CHECK_HINT_INFO[return_code];
-		p_account_hint_info_elem.style.visibility = "visible"; //必须要用引号。。。
-
-		console.log("text account value length is " + str.length);
-		var img_account_hint = document.getElementById(ID_IMG_ACCOUNT_HINT);
-		img_account_hint.setAttribute('src', SRC_WRONG_IMG);
-		img_account_hint.style.visibility = 'visible';  //这个不能用setAttribute哦~
-
+		doWhenAccountWrong(return_code);
 		//Todo:
 		//create information node(e.g.  the length should be more than 5.)
 		//set the flag that the form can not be submit.
@@ -264,6 +357,24 @@ function checkPasswordLogic(str)
 	return HINT_OK;
 }
 
+function doPasswordWrong(return_code)
+{
+	var img_elem = document.getElementById(ID_IMG_PASSWORD_HINT);
+	//show the img and the correspond hint info.
+	img_elem.setAttribute("src", SRC_WRONG_IMG);
+
+	clearRepasswordHint();
+}
+
+function clearRepasswordHint()
+{
+	var img_hint = document.getElementById(ID_IMG_REPASSWORD_HINT);
+	var p_hint = document.getElementById(ID_P_REPASSWORD_HINT);
+
+	img_hint.style.visibility = "hidden";
+	p_hint.style.visibility = "hidden";
+}
+
 function checkPassword(elem, str)
 {
 	console.log("this is password input");
@@ -278,8 +389,7 @@ function checkPassword(elem, str)
 	var img_elem = document.getElementById(ID_IMG_PASSWORD_HINT);
 	if (return_code != HINT_OK)
 	{
-		//show the img and the correspond hint info.
-		img_elem.setAttribute("src", SRC_WRONG_IMG);
+		doPasswordWrong();
 	}
 	else
 	{
@@ -289,6 +399,39 @@ function checkPassword(elem, str)
 	
 	img_elem.style.visibility = "visible";
 	
+}
+
+function checkRepassword(elem, str)
+{
+	//to check if the password is equal to str.
+	var pwd_str = document.getElementById(ID_INPUT_PASSWORD).value;
+	var img_hint = document.getElementById(ID_IMG_REPASSWORD_HINT);
+	var p_hint = document.getElementById(ID_P_REPASSWORD_HINT);
+
+	if (HINT_OK == checkPasswordLogic(pwd_str))
+	{
+		img_hint.style.visibility = "visible";	
+		p_hint.style.visibility = "visible";
+
+		if (pwd_str != str)
+		{
+			img_hint.setAttribute("src", SRC_WRONG_IMG);
+			p_hint.innerHTML = HINT_REPASSWORD_STR;
+		}
+		else
+		{
+			img_hint.setAttribute("src", SRC_RIGHT_IMG);
+			p_hint.innerHTML = "";
+		}
+		return HINT_OK;
+	}
+	else
+	{
+		img_hint.style.visibility = "hidden";
+		p_hint.style.visibility = "hidden";
+
+		return HINT_REPASSWORD_ERROR;
+	}
 }
 
 function check(checkElement_idx)
@@ -303,6 +446,11 @@ function check(checkElement_idx)
 			break;
 		case ID_INPUT_PASSWORD:
 			checkPassword(element, element.value);
+			break;
+		case ID_INPUT_REPASSWORD:
+			checkRepassword(element, element.value);
+			break;
+		default :
 			break;
 	}
 	
