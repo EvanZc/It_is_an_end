@@ -12,18 +12,18 @@
 			$acc_len = strlen($usr_account);
 			if (($acc_len < 6) or ($acc_len > 16))
 			{
-				echo "length wrong, the account " . $usr_account . " len is " .  $acc_len . "<br />";
+				jsPrintSingleQuote('length wrong, the account ', $usr_account, '<br />');
 				return false;
 			}
 
 			//if any word is not in a-zA-Z0-9 return false
 			if (!preg_match("/^[0-9a-zA-Z]+$/", $usr_account))
 			{
-				echo "Not match, the account is " . $usr_account . "<br />";
+				jsPrintSingleQuote('Not match, the account is ', $usr_account, '<br />');
 				return false;
 			}
 
-			echo "str ok . account is " . $usr_account . "<br />";
+			jsPrintSingleQuote('str ok . account is ', $usr_account, '<br />');
 			return true;
 		}
 
@@ -32,18 +32,18 @@
 			$pwd_len = strlen($usr_pwd);
 			if (($pwd_len < 6) or ($pwd_len > 16))
 			{
-				echo "length wrong, the pwd " . $usr_pwd . " len is " .  $pwd_len . "<br />";
+				jsPrintSingleQuote('length wrong, the pwd ', $usr_pwd, '<br />');
 				return false;
 			}
 
 			//if any word is not in a-zA-Z0-9 return false
 			if (!preg_match("/^[0-9a-zA-Z]+$/", $usr_pwd))
 			{
-				echo "Not match, the pwd is " . $usr_pwd . "<br />";
+				jsPrintSingleQuote('Not match, the pwd is ', $usr_pwd, '<br />');
 				return false;
 			}
 
-			echo "str ok . pwd is " . $usr_pwd . "<br />";
+			jsPrintSingleQuote('str ok . pwd is ', $usr_pwd, '<br />');
 			return true;
 		}
 
@@ -65,15 +65,15 @@
 		}
 
 		//tested
-		function jsPrint()
+		function jsPrintSingleQuote()
 		{
-			$start = "<script type='text/javascript'> console.log('";
+			$start = "<script type='text/javascript'> console.log(\"";
 			$arg_list = func_get_args();
 			foreach ($arg_list as $s)
 			{
 				$start .= $s . " ";
 			}
-			$start .= "'); </script>";
+			$start .= "\"); </script>";
 			echo $start;
 		}
 	?>
@@ -83,7 +83,7 @@
 
 		if (!checkUserAccount($usr_account))
 		{
-			echo 'usr_account is ' . $usr_account . '<br />';
+			jsPrintSingleQuote('usr_account is', $usr_account, '<br />');
 			showLinktoRegisterPage();
 			return;
 		}
@@ -92,7 +92,7 @@
 
 		if (!checkUserPwd($usr_pwd))
 		{
-			echo 'usr_pwd is ' . $usr_pwd . '<br />';
+			jsPrintSingleQuote('usr_pwd is ', $usr_pwd, '<br />');
 			showLinktoRegisterPage();
 			return;
 		}
@@ -102,19 +102,40 @@
 		//if two not equal
 		if (!checkUserPwdAndRepwd($usr_pwd, $usr_repwd))
 		{
-			echo 'usr_pwd is ' . $usr_pwd . ', usr_repwd is ' . $usr_repwd . '<br />';
+			jsPrintSingleQuote('usr_pwd is ', $usr_pwd, ', usr_repwd is ', $usr_repwd, '<br />');
 			showLinktoRegisterPage();
 			return;
 		}
 
 		$usr_province = $_POST['select_province'];
 
-		jsPrint('usr_account is', $usr_account);
-		jsPrint('usr_province is', $usr_province);
-		jsPrint('usr_pwd is' , $usr_pwd);
-		jsPrint('usr_repwd is' , $usr_repwd);
+		jsPrintSingleQuote('usr_account is', $usr_account);
+		jsPrintSingleQuote('usr_province is', $usr_province);
+		jsPrintSingleQuote('usr_pwd is' , $usr_pwd);
+		jsPrintSingleQuote('usr_repwd is' , $usr_repwd);
 
 		//connect the sql to register, if any sql sentence, return and back to register page.
+		$conn = mysqli_connect('localhost', 'root', 'superman29', 'myweb') or die('Sorry we enconter a problem.');
+		if (!$conn)
+		{
+			jsPrintSingleQuote('mysqli_connect failed.');
+			showLinktoRegisterPage();
+			return;
+		}
+
+		$query = "INSERT INTO user_info (user_account, user_pwd, user_province) VALUES ('" . $usr_account .
+			"', '" . $usr_pwd . "', '" . $usr_province . "');";
+
+		jsPrintSingleQuote('query is ', $query);
+		$res = mysqli_query($conn, $query);
+		if (!$res)
+		{
+			jsPrintSingleQuote('mysqli_query failed.');
+			showLinktoRegisterPage();
+			return;
+		}
+
+		mysqli_close($conn);
 
 		//login... with cookie?
 	?>

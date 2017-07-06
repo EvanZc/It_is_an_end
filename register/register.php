@@ -28,9 +28,9 @@
     			<div class="form_div_row">
     				<label class="label_describe">City:</label>
     				<select class="form_right_choice" name="select_province">
-    					<option value="Chengdu">Chengdu</option>
+    					<option value="Chengdu">SiChuan</option>
     					<option value="Shanghai">Shanghai</option>
-    					<option value="Guangzhou">Guangzhou</option>
+    					<option value="Guangzhou">GuangDong</option>
                         <option value="Guangzhou">Other</option>
     				</select>
     			</div>
