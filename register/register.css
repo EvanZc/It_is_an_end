@@ -18,7 +18,7 @@ div#allcontent {
 /*form 元素是块级元素，其前后会产生折行。*/
 #form_register {
 	margin: 0 auto;
-	width: 400px;
+	width: 600px;
 
 	display: table;
 }
@@ -30,7 +30,13 @@ div.form_div_row {
 .img_hint {
 	vertical-align: text-bottom;
 	visibility: hidden;
-	display: table-cell;
+	/*display: table-cell;  ie chrome都会认为是block*/
+	display: inline-block;
+}
+
+.img_hint:after {
+	display: inline-block;
+	width: 200px;
 }
 
 .form_div_take_place {
@@ -41,7 +47,7 @@ div.form_div_row {
 	display: table-row;
 	height: 20px;  /*需要足够高*/
 	font-size: 10px;
-
+	width: 300px;
 	text-align: left;
 }
 
@@ -63,8 +69,9 @@ label.label_describe {
 }
 
 
-label.form_right_choice {
-	display: table-cell;
+.form_right_choice {
+	width: 180px;
+	/*display: table-cell; ie 会变形*/
 }
 
 p.p_table_cell{
