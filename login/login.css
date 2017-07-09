@@ -1,0 +1,119 @@
+body {
+	margin: 0px;
+}
+
+/* 凝胶模型 */
+#section_master {
+	width: 1600px;
+	margin: 0px auto;
+
+	background-color: gray;
+	/*block的高度，很关键，是撑开的*/
+}
+
+img {
+	display: block;  /*不要这个header不会是200px高度*/
+}
+
+#section_login {
+	margin: 200px auto 10px auto;
+}
+
+.form_row {
+	text-align: center;
+	margin: 60px;
+}
+
+.form_row label {
+	font-size: 40px;
+}
+.form_row input {
+	height: 40px;
+}
+
+footer {  /*footer 竟然可以直接改高度？？*/
+	display: table;
+	height: 200px;
+	width: 1600px;
+	margin: 0;
+	background-color: #F6F6F6;
+	text-align: center;
+}
+
+footer p {
+	display: table-cell;   /*inline block是可以改变高度的*/
+	vertical-align: middle;
+}
+/*
+http://demo.doyoe.com/css/alignment/
+方法1：
+	footer display设置为table
+	p      display设置为table-cell的话
+	p      vertical-align:middle; 就可以拉  //这个要IE8及以上，因为display
+
+	直接用table元素，单元格默认就是 vertical-align:middle 的
+方法2：
+	在元素的后面添加一个看不见的宽度为0的inline-block。高度100%,vertical-align:middle;
+	after伪类，content:'';
+对于不支持伪类的，添加一个span，属性和上面一样，只是增加*属性
+	*display:inline;
+	*zoom:1;
+
+法3：
+	father block元素font-size为0，只有p有font-size
+
+在CSS选择器内星号+CSS样式属性单词，
+一般区别IE6和IE8、IE6和FF，IE7和IE8，IE7和FF浏览器之间属性CSS HACK。如下演示测试。
+*/
+
+
+/*
+The text-align CSS property describes 
+how inline content like text is aligned 
+in its parent block element. text-align 
+does not control the alignment of block 
+elements, only their inline content.
+
+text-align只作用于inline元素
+
+所以button居中 目前自己有2种方法
+1、直接设置父section(section_login) text-align
+2、设置button block + margin : 0 auto;
+*/
+
+.login {
+	width: 600px;
+	height: 80px;
+    margin: 10px auto 100px auto;
+	padding: 0;
+	display: block;
+}
+
+#button_login_active{
+	background-image: url(/img/login/button_login_active.png);
+
+}
+
+
+#button_reg_active{
+	background-image: url(/img/login/button_reg_active.png);
+}
+/*
+http://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/
+
+vertical-align的百分比值不是相对
+于字体大小或者其他什么属性计算的，而是相对于line-height计算的。
+
+vertical-align和line-height的地下基友关系从HTML5文档声明开始的
+
+<div><img src="mm1.jpg"></div> 图片下面会有空白
+
+对于内联元素，vertical-align与line-height虽然看不见，但实际上「到处都是」
+
+在HTML5文档声明下，块状元素内部的内联元素的行为表现，就好像块状元素内部还有一个
+（更有可能两个-前后）看不见摸不着没有宽度没有实体的空白节点，
+这个假想又似乎存在的空白节点，我称之为“幽灵空白节点”。 
+
+vertical-align默认值是baseline, 也就是基线对齐。
+
+*/

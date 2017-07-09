@@ -138,6 +138,7 @@
 		mysqli_close($conn);
 
 		//login... with cookie?
+		//head to the ../mainpage/mainpage.php
 	?>
 
 

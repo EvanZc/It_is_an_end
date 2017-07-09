@@ -1,119 +1,104 @@
-body {
-	margin: 0px;
-}
-
-/* 凝胶模型 */
-#section_master {
-	width: 1600px;
-	margin: 0px auto;
-
-	background-color: gray;
-	/*block的高度，很关键，是撑开的*/
-}
-
-img {
-	display: block;  /*不要这个header不会是200px高度*/
-}
-
-#section_login {
-	margin: 200px auto 10px auto;
-}
-
-.form_row {
-	text-align: center;
-	margin: 60px;
-}
-
-.form_row label {
-	font-size: 40px;
-}
-.form_row input {
-	height: 40px;
-}
-
-footer {  /*footer 竟然可以直接改高度？？*/
-	display: table;
-	height: 200px;
-	width: 1600px;
+/*
+1、直接给header设置background-image是不行的
+2、<header>是个 block元素，没有东西高度为0，而且如果里面放一个span，下面放一个span，
+	看得出下面的那个span是换行了的。
+3、好像id为header的header，也没有太大的问题。但是慎用，最好区分。
+4、加了span以后，就看得到png了。
+5、nav也是一个block
+6、拉伸有background-size属性，但是现在没有搞。  先记下来
+	background-image:url("");  
+*/
+span:after {
+	content: '';
+	display: inline-block;
+	height: 180px;  /*为了把这个div扩大到180px高，使得background-image生效*/
+	width: 0px;
 	margin: 0;
-	background-color: #F6F6F6;
-	text-align: center;
-}
-
-footer p {
-	display: table-cell;   /*inline block是可以改变高度的*/
-	vertical-align: middle;
-}
-/*
-http://demo.doyoe.com/css/alignment/
-方法1：
-	footer display设置为table
-	p      display设置为table-cell的话
-	p      vertical-align:middle; 就可以拉  //这个要IE8及以上，因为display
-
-	直接用table元素，单元格默认就是 vertical-align:middle 的
-方法2：
-	在元素的后面添加一个看不见的宽度为0的inline-block。高度100%,vertical-align:middle;
-	after伪类，content:'';
-对于不支持伪类的，添加一个span，属性和上面一样，只是增加*属性
-	*display:inline;
-	*zoom:1;
-
-法3：
-	father block元素font-size为0，只有p有font-size
-
-在CSS选择器内星号+CSS样式属性单词，
-一般区别IE6和IE8、IE6和FF，IE7和IE8，IE7和FF浏览器之间属性CSS HACK。如下演示测试。
-*/
-
-
-/*
-The text-align CSS property describes 
-how inline content like text is aligned 
-in its parent block element. text-align 
-does not control the alignment of block 
-elements, only their inline content.
-
-text-align只作用于inline元素
-
-所以button居中 目前自己有2种方法
-1、直接设置父section(section_login) text-align
-2、设置button block + margin : 0 auto;
-*/
-
-.login {
-	width: 600px;
-	height: 80px;
-    margin: 10px auto 100px auto;
 	padding: 0;
-	display: block;
 }
 
-#button_login_active{
-	background-image: url(button_login_active.png);
-
+#header {
+	background-image: url(/img/index/header_bkg.png);
 }
 
-
-#button_reg_active{
-	background-image: url(button_reg_active.png);
+nav {
+	margin: 10px;
 }
+
 /*
-http://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/
+aside也是一个块元素
 
-vertical-align的百分比值不是相对
-于字体大小或者其他什么属性计算的，而是相对于line-height计算的。
+浮动元素：
+在 CSS 中，任何元素都可以浮动。浮动元素会生成一个块级框，而不论它本身是何种元素。
+如果浮动非替换元素，则要指定一个明确的宽度；否则，它们会尽可能地窄。
+假如在一行之上只有极少的空间可供浮动元素，那么这个元素会跳至下一行，(下面如果iframe设置
+长一点的话，就会空行到下一行。)
+这个过程会持续到某一行拥有足够的空间为止。
 
-vertical-align和line-height的地下基友关系从HTML5文档声明开始的
+iframe就算不指定 长和高，系统也会有个默认的。所以宽度没有占满整个页面，
+应该是一个inline-block
+iframe天生就有border
 
-<div><img src="mm1.jpg"></div> 图片下面会有空白
+todo：iframe应该是可以通过float和各种margin，屏幕大小，算出它自己的宽度
+但是估计要js的知识
 
-对于内联元素，vertical-align与line-height虽然看不见，但实际上「到处都是」
 
-在HTML5文档声明下，块状元素内部的内联元素的行为表现，就好像块状元素内部还有一个
-（更有可能两个-前后）看不见摸不着没有宽度没有实体的空白节点，
-这个假想又似乎存在的空白节点，我称之为“幽灵空白节点”。 
-
-vertical-align默认值是baseline, 也就是基线对齐。
 
 */
+
+aside {
+	float: left;
+}
+
+/*
+去掉 ul的点
+选择器是ul或者li都可以。
+
+默认是有margin和padding的，所以去掉缩进的话，需要把margin，padding去掉
+*/
+ul {
+	list-style-type: none;
+	margin: 10px;
+	padding: 0;
+}
+
+li:hover {
+	background-color: yellow;
+}
+
+li>a {
+	text-decoration: none;
+}
+
+div#div_iframe {
+	display: inline-block;
+	clear: left;
+}
+
+/*
+a元素的target指向的iframe的name的话，那么这个网址就会在iframe里面显示
+a元素指向的页面内容的大小，不会使得iframe被撑开（会有scroll）
+*/
+div>iframe {
+	width: 1190px;
+	height: 675px;
+	margin: 0;
+}
+
+/*
+footer 直接用的是 img元素填充， header元素用的是background-image
+但是直接加成img图像发现，img其实是在右边突出了一点的
+
+如果把img设置成width 100%，你可以看到图片有缩放。
+如果不按比例来，比如widht是100%，height是180px，图片明显看得出有拉伸。
+
+如果设置成180px，可以发现，图片是原图，但是比最外面的div都要大得多。而header
+都是被截了。到了div的边缘就不再扩张。因为它是background-img，肯定只会和div相等。
+header的div能够扩展到哪，它就只能到哪
+
+footer的img，不会受到div的影响。反而是div受到这个图片的影响。
+*/
+
+footer img{
+	height: 180px;  
+}
