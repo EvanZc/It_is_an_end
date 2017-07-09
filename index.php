@@ -1,3 +1,14 @@
+<?php
+	//use it before anything was sent.
+	session_start();
+	if (!isset($_SESSION['login_flag']))
+	{
+		header("Location: /login/login.php");
+	}
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,5 +43,7 @@
 			<img src="/img/index/header_bkg.png">
 		</footer>
 	</div>
+
+	<script type="text/javascript" scr="index.js"></script>
 </body>
 </html>

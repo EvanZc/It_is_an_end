@@ -1,3 +1,23 @@
+<?php
+	if (isset($_GET['unknownerror']))
+	{
+		echo $_SERVER['PHP_SELF'];
+		echo "<script type='text/javascript'> alert('Unknown error, try later.');</script>";
+		//unset($_GET['unknownerror']); the unknownerror still exists on the url.
+		echo "<script type='text/javascript'> window.location.href = '". $_SERVER['PHP_SELF'] ."'; </script>";
+		
+	}
+	if (isset($_GET['erraccountorpwd']))
+	{
+		echo "<script type='text/javascript'> alert('Account or password wrong.');</script>";
+		echo "<script type='text/javascript'> window.location.href = '". $_SERVER['PHP_SELF'] ."'; </script>";
+		//unset($_GET['erraccountorpwd']); the erraccountorpwd still exists on the url.
+		//same get info still exists echo "<script type='text/javascript'> window.location.href = location.href; </script>";
+	}
+	//get the user name and show
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,14 +30,14 @@
 			<img src="/img/login/login_header.png">
 		</header>
 		<section id="section_login">
-			<form action="" method="post" id="form_login">
+			<form action="check/checkaccount.php" method="post" id="form_login">
 				<div class="form_row">
 					<label>Account:</label>
-					<input type="text" id="text_account"/>
+					<input type="text" id="text_account" name="text_account"/>
 				</div>
 				<div class="form_row">
 					<label>Password:</label>
-					<input type="password" id="password_pwd"/>
+					<input type="password" id="password_pwd" name="password_pwd"/>
 				</div>
 				<!-- value必须是"" 否则看得到字-->
 				<input type="submit" value="" id="button_login_active" class="login">
