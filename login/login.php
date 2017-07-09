@@ -1,4 +1,19 @@
 <?php
+    require_once("../lib/php/allkinds.php");
+	$LOGIN_FLAG = 'login_flag';
+
+	session_start();
+
+	//session exists, go straight.
+	if (isset($_SESSION[$LOGIN_FLAG]) && ($_SESSION[$LOGIN_FLAG] == true))
+	{
+		jsPrintSingleQuote("checkaccount jump to index.php");
+		header("Location: ../index.php");
+		exit();
+	}
+?>
+
+<?php
 	if (isset($_GET['unknownerror']))
 	{
 		echo $_SERVER['PHP_SELF'];

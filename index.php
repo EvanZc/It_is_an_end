@@ -5,8 +5,6 @@
 	{
 		header("Location: /login/login.php");
 	}
-
-
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +16,7 @@
 <body>
 	<div id="div_allcontent">
 		<header id="header">
-			<span>xxssssssssssss</span>
+			<span><a href="/login/logout.php">exit</a></span>
 		</header>
 		<nav>
 			<a href="https://www.baidu.com">baidu</a>

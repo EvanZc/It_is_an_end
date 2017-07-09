@@ -14,7 +14,7 @@
 	if (isset($_SESSION[$LOGIN_FLAG]) && ($_SESSION[$LOGIN_FLAG] == true))
 	{
 		jsPrintSingleQuote("checkaccount jump to index.php");
-		header("Location: ../index.php");
+		header("Location: ../../index.php");
 		exit();
 	}
 ?>
@@ -50,6 +50,7 @@
 	mysqli_close($conn);
 
 	//if go to here , means ok, set the login flag and head to index.php;
-	echo "Hei !! you made it";
+	$_SESSION[$LOGIN_FLAG] = true;
+	header("Location: ../../index.php");
 
 ?>

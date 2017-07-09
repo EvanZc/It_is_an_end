@@ -8,6 +8,12 @@
 6、拉伸有background-size属性，但是现在没有搞。  先记下来
 	background-image:url("");  
 */
+#div_allcontent {
+	width: 1800px;
+	margin: 0 auto;
+}
+
+
 span:after {
 	content: '';
 	display: inline-block;
@@ -17,8 +23,16 @@ span:after {
 	padding: 0;
 }
 
+
+span {
+	position: relative;
+	top: -160px;
+	right: -1760px;
+}
+
 #header {
 	background-image: url(/img/index/header_bkg.png);
+	background-repeat: no-repeat;
 }
 
 nav {
@@ -48,6 +62,7 @@ todo：iframe应该是可以通过float和各种margin，屏幕大小，算出�
 
 aside {
 	float: left;
+	width: 300px;
 }
 
 /*
