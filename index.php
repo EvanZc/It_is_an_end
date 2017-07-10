@@ -25,11 +25,9 @@
 		</nav>
 
 		<aside>
-			<ul>
-				<li><a href="lipage1.html" target="mainiframe">dota2</a></li>
-				<li><a href="lipage2.html" target="mainiframe">github</a></li>
-				<li><a href="lipage3.html" target="mainiframe">stackoverflow</a></li>
-			</ul>
+			<div class="div_aside_block"><a href="lipage1.html" target="mainiframe">dota2</a></div>
+			<div class="div_aside_block"><a href="lipage2.html" target="mainiframe">github</a></div>
+			<div class="div_aside_block"><a href="lipage3.html" target="mainiframe">stackoverflow</a></div>
 		</aside>
 
 		<div id="div_iframe">
@@ -38,7 +36,7 @@
 		</div>
 
 		<footer>
-			<img src="/img/index/header_bkg.png">
+			<img src="/img/index/header_bkg.png"/>
 		</footer>
 	</div>
 

@@ -8,6 +8,11 @@
 6、拉伸有background-size属性，但是现在没有搞。  先记下来
 	background-image:url("");  
 */
+body {
+	background-color: #f2cccc;
+	margin: 0;
+}
+
 #div_allcontent {
 	width: 1800px;
 	margin: 0 auto;
@@ -24,7 +29,7 @@ span:after {
 }
 
 
-span {
+header>span {
 	position: relative;
 	top: -160px;
 	right: -1760px;
@@ -33,10 +38,12 @@ span {
 #header {
 	background-image: url(/img/index/header_bkg.png);
 	background-repeat: no-repeat;
+	line-height: 0; /*zhang xin xu*/
 }
 
 nav {
-	margin: 10px;
+	height: 80px;
+	background-color: #ce9e9e;
 }
 
 /*
@@ -77,12 +84,8 @@ ul {
 	padding: 0;
 }
 
-li:hover {
-	background-color: yellow;
-}
-
-li>a {
-	text-decoration: none;
+.div_aside_block:hover {
+	background-color: #da5353;
 }
 
 div#div_iframe {
@@ -113,7 +116,11 @@ header的div能够扩展到哪，它就只能到哪
 
 footer的img，不会受到div的影响。反而是div受到这个图片的影响。
 */
+footer {
+	margin: 0;
+	line-height: 0px; /*zhang xinxu*/
+}
 
 footer img{
-	height: 180px;  
+	width: 100%;
 }
