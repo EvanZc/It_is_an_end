@@ -46,6 +46,39 @@ nav {
 	background-color: #ce9e9e;
 }
 
+/*ul的高度，不设置的话就是0, 因为li浮动了！！！*/
+#ul_nav {
+	margin: 0px; /*默认liststyle none*/
+	height: 100%;
+}
+
+#ul_nav>li {
+	float: left;
+	display: block;
+	height: 100%;
+	margin-right: 20px;
+	display: table;
+}
+
+li:hover {
+	background-color: #cfaeae;
+	
+}
+
+.li_ul_nav>a {
+	text-decoration: none;
+	font-size: 25px;
+	font-family: "Microsoft YaHei", verdana, arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	display: table-cell;
+	vertical-align: middle;
+	height: 100%;
+
+
+	/* 还有一个办法是 父元素table 子元素table-cell 然后vertical-align:middle*/
+}
+
 /*
 aside也是一个块元素
 
@@ -83,6 +116,24 @@ ul {
 	margin: 10px;
 	padding: 0;
 }
+
+.div_aside_block {
+	height: 100px;
+	width: 100%;
+	text-align: center;
+	display: table;
+}
+
+.div_aside_block>a
+{
+	display: table-cell;
+	vertical-align: middle;
+
+	text-decoration: none;
+	font-size: 35px;
+}
+
+
 
 .div_aside_block:hover {
 	background-color: #da5353;

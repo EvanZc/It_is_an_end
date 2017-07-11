@@ -19,9 +19,11 @@
 			<span><a href="/login/logout.php">exit</a></span>
 		</header>
 		<nav>
-			<a href="https://www.baidu.com">baidu</a>
-			<a href="https://www.tencent.com">tencent</a>
-			<a href="https://www.taobao.com">taobao</a>
+			<ul id="ul_nav">
+				<li class="li_ul_nav"><a href="https://www.baidu.com">baidu</a></li>
+				<li class="li_ul_nav"><a href="https://www.tencent.com">tencent</a></li>
+				<li class="li_ul_nav"><a href="https://www.taobao.com">taobao</a></li>
+			</ul>
 		</nav>
 
 		<aside>
