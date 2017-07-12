@@ -18,27 +18,27 @@ body {
 	margin: 0 auto;
 }
 
-
-span:after {
-	content: '';
-	display: inline-block;
-	height: 180px;  /*为了把这个div扩大到180px高，使得background-image生效*/
-	width: 0px;
-	margin: 0;
-	padding: 0;
-}
-
-
-header>span {
-	position: relative;
-	top: -160px;
-	right: -1760px;
-}
-
 #header {
 	background-image: url(/img/index/header_bkg.png);
 	background-repeat: no-repeat;
 	line-height: 0; /*zhang xin xu*/
+}
+
+#ul_header {
+	height: 180px;
+	margin: 0px;
+	line-height: 20px; /*be careful #header set it to 0.*/
+}
+
+#ul_header>li {
+	width: 50px;
+	height: 30px;
+	float: right;
+
+}
+
+.a_in_ul_header_li {
+	display: inline-block;
 }
 
 nav {
@@ -139,16 +139,21 @@ ul {
 	background-color: #da5353;
 }
 
+#div_main_three {
+	font-size: 0;
+}
+
 div#div_iframe {
 	display: inline-block;
 	clear: left;
+	font-size: 0;
 }
-
 /*
 a元素的target指向的iframe的name的话，那么这个网址就会在iframe里面显示
 a元素指向的页面内容的大小，不会使得iframe被撑开（会有scroll）
 */
 div>iframe {
+	border: none;
 	width: 1190px;
 	height: 675px;
 	margin: 0;
@@ -168,10 +173,11 @@ header的div能够扩展到哪，它就只能到哪
 footer的img，不会受到div的影响。反而是div受到这个图片的影响。
 */
 footer {
-	margin: 0;
+	margin: 0px;
 	line-height: 0px; /*zhang xinxu*/
 }
 
 footer img{
 	width: 100%;
+	display: block;
 }
