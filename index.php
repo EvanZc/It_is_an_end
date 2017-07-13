@@ -19,7 +19,7 @@
 			<header id="header"><!--设置ul会把header撑大-->
 				<ul id="ul_header">
 					<li id="header_li_exit"><a class="a_in_ul_header_li" href="/login/logout.php">exit</a></li>
-					<li id="header_li_set"><a class="a_in_ul_header_li" href="/login/logout.php">set</a></li>
+					<li id="header_li_set"><a class="a_in_ul_header_li" href="/userset/setuserinfo.php">set</a></li>
 				</ul>
 			</header>
 		</div>

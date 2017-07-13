@@ -1,6 +1,7 @@
 <?php
 	require_once("../../lib/php/allkinds.php");
 	$LOGIN_FLAG = 'login_flag';
+	$USER_ACCOUNT = 'usr_account';
 
 	$DATABASE_SERVER = 'localhost';
 	$DATABASE_ACCOUNT = 'root';
@@ -51,6 +52,7 @@
 
 	//if go to here , means ok, set the login flag and head to index.php;
 	$_SESSION[$LOGIN_FLAG] = true;
+	$_SESSION[$USER_ACCOUNT] = $_POST['text_account'];
 	header("Location: ../../index.php");
 
 ?>

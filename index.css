@@ -34,7 +34,10 @@ body {
 	width: 50px;
 	height: 30px;
 	float: right;
+}
 
+#ul_header>li:hover {
+	background-color: transparent;
 }
 
 .a_in_ul_header_li {
