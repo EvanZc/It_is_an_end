@@ -45,3 +45,12 @@
 	//if normal, show normal, later we can save picture.
 	//eles hint the user and back to login.
 ?>
+
+<html>
+<head>
+	<title>Set your account</title>
+</head>
+<body>
+	<p>You can linger for a while, but never lost.</p>
+</body>
+</html>

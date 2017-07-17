@@ -36,10 +36,6 @@ body {
 	float: right;
 }
 
-#ul_header>li:hover {
-	background-color: transparent;
-}
-
 .a_in_ul_header_li {
 	display: inline-block;
 }
@@ -63,7 +59,7 @@ nav {
 	display: table;
 }
 
-li:hover {
+.li_ul_nav:hover {
 	background-color: #cfaeae;
 	
 }
